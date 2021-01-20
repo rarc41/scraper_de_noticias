@@ -5,8 +5,8 @@ import datetime
 
 HOME_URL = 'https://www.larepublica.co/'
 
-XPATH_LINK_TO_ARTICLE = '//h2/a/@href'
-XPATH_TITLE = '//div[@class="mb-auto"]/h2/a/text()'
+XPATH_LINK_TO_ARTICLE = '//text-fill/a/@href'
+XPATH_TITLE = '//div[@class="mb-auto"]/text-fill/a/text()'
 XPATH_SUMMARY='//div[@class="lead"]/p/text()'
 XPATH_CONTENT='//div[@class="html-content"]/p[not(@class)]/text()'
 
@@ -20,8 +20,9 @@ def parse_notice(link, today):
             
             try:
                 title=parsed.xpath(XPATH_TITLE)[0]
-                print(title)
+                # print(title)
                 title = title.replace('\"', '')
+                title = title.replace(':', '-')
                 summary=parsed.xpath(XPATH_SUMMARY)[0]
                 content=parsed.xpath(XPATH_CONTENT)
             except IndexError:
